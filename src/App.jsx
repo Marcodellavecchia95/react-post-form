@@ -1,7 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 
-const initialFormData = { author: "", title: "", body: "", public: false };
+const initialFormData = {
+  author: "",
+  title: "",
+  body: "",
+};
 
 export default function App() {
   const [formData, setFormData] = useState(initialFormData);
@@ -55,17 +59,13 @@ export default function App() {
         <div className="form-check">
           <input
             onChange={(e) => {
-              if (e.target.checked) {
-                setButtonState(true);
-              } else {
-                setButtonState(false);
-              }
+              setFormData({ ...formData, public: e.target.checked });
               console.log(buttonState);
             }}
             name="public"
             className="form-check-input"
             type="checkbox"
-            checked={buttonState}
+            checked={formData.public}
           />
           <label className="form-check-label" htmlFor="checkDefault">
             Public
