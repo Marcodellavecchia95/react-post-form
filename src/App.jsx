@@ -5,6 +5,7 @@ const initialFormData = { author: "", title: "", body: "", public: false };
 
 export default function App() {
   const [formData, setFormData] = useState(initialFormData);
+  const [buttonState, setButtonState] = useState(false);
 
   const handleInputData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,7 +53,20 @@ export default function App() {
           />
         </div>
         <div className="form-check">
-          <input className="form-check-input" type="checkbox" />
+          <input
+            onChange={(e) => {
+              if (e.target.checked) {
+                setButtonState(true);
+              } else {
+                setButtonState(false);
+              }
+              console.log(buttonState);
+            }}
+            name="public"
+            className="form-check-input"
+            type="checkbox"
+            checked={buttonState}
+          />
           <label className="form-check-label" htmlFor="checkDefault">
             Public
           </label>
