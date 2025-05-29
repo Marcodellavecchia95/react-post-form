@@ -5,7 +5,10 @@ const initialFormData = {
   author: "",
   title: "",
   body: "",
+  public: false,
 };
+
+const apiUrl = "https://67c5b4f3351c081993fb1ab6.mockapi.io/api/posts";
 
 export default function App() {
   const [formData, setFormData] = useState(initialFormData);
@@ -18,7 +21,10 @@ export default function App() {
   const handleFormData = (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    axios.post(apiUrl, formData).then((res) => {
+      console.log(res.data);
+      setFormData(initialFormData);
+    });
   };
 
   return (
@@ -30,7 +36,7 @@ export default function App() {
           <label className="form-label">Author</label>
           <input
             onChange={handleInputData}
-            value={initialFormData.name}
+            value={formData.author}
             name="author"
             type="text"
             className="form-control"
@@ -40,7 +46,7 @@ export default function App() {
           <label className="form-label">Title</label>
           <input
             onChange={handleInputData}
-            value={initialFormData.name}
+            value={formData.title}
             name="title"
             type="text"
             className="form-control"
@@ -50,7 +56,7 @@ export default function App() {
           <label className="form-label">Body</label>
           <input
             onChange={handleInputData}
-            value={initialFormData.name}
+            value={formData.body}
             name="body"
             type="text"
             className="form-control"
@@ -60,7 +66,6 @@ export default function App() {
           <input
             onChange={(e) => {
               setFormData({ ...formData, public: e.target.checked });
-              console.log(buttonState);
             }}
             name="public"
             className="form-check-input"
